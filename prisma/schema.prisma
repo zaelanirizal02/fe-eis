@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model employe {
+  id            Int    @id @default(autoincrement())
+  nama          String
+  usia          Int
+  pendidikan    String
+  jenis_kelamin String
+  lokasi_kerja  String
+  status_kerja  String
+}

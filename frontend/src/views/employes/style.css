@@ -1,0 +1,96 @@
+.my-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(211, 216, 227)
+}
+
+.tinggi-accordion {
+    min-height: 100px;
+    /* Atur tinggi minimum sesuai kebutuhan Anda */
+}
+
+.custom-datatable th,
+.custom-datatable td {
+    width: auto;
+   border:   black;
+    
+
+}
+
+
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tabel-container{
+    display:flex;
+    justify-content: space-between;
+}
+
+.chart-card {
+    width: 100%;
+    padding: 5px;
+    /* atau sesuaikan sesuai kebutuhan */
+}
+
+.data-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.datatable-container{
+    margin: 2px;
+   
+}
+
+
+.menubar {
+    position: relative;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.tinggi-nav-radius{
+    height: 50px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    /* text Property */
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        /* Menengahkan vertikal */
+    
+}
+
+/* CHART ============================== */
+.chartSize{
+    width: 50%;
+    height: 50%;
+}
+
+.custom-chart {
+    height: 100%;
+    width: 100%;
+    margin-top: auto;
+    /* Pastikan chart mengisi lebar container */
+}
+
+
+/* flex ==================================================== */
+.border-round-sm {
+    border-radius: 10px;
+    /* Sesuaikan nilai radius sesuai keinginan Anda */
+}
+
+.flex-container{
+    display: flex;
+}
+
+.testescolor{
+    background-color: rgb(103, 101, 164);
+}
