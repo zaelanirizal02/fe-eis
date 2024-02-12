@@ -1,5 +1,5 @@
 <template>
-    <div class="justify-content-center custom-chart " ref="chartContainer">
+    <div class="custom-chart" ref="chartContainer">
         <Chart type="doughnut" :data="chartData" :options="chartOptions" :plugins="plugins" />
     </div>
 </template>
@@ -8,13 +8,12 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { hrisServiceHr1Mod1, token } from "../api/index";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-// import Chart from 'primevue/chart';
+import Chart from 'primevue/chart';
 
 const plugins = [ChartDataLabels];
 const chartData = ref(null);
 const chartOptions = ref(null);
-const chart = ref(null);
-const chartContainer = ref(null);
+const chart = (null);
 
 onMounted(async () => {
     await fetchDataFromApi();
@@ -28,14 +27,14 @@ onBeforeUnmount(() => {
 const fetchDataFromApi = async () => {
     try {
         const response = await hrisServiceHr1Mod1.get(
-            "registrasiPegawai/findJumlahPegawaiFilterJenisKelamin",
+            "registrasiPegawai/findJumlahJabatan",
             {
                 headers: {
                     "x-auth-token": `${token}`,
                 },
             }
         );
-        const data = response.data.data.jumlahPegawaiFilter;
+        const data = response.data.data.jabatanDepartemenTotal;
 
         chartData.value = setChartData(data);
         chartOptions.value = setChartOptions();
@@ -46,8 +45,8 @@ const fetchDataFromApi = async () => {
 };
 
 const setChartData = (data) => {
-    const labels = data.map((item) => `${item.nama} - ${item.jumlah}`);
-    const seriesData = data.map((item) => item.jumlah);
+    const labels = data.map((item) => `${item.namaJabatan} - ${item.totalPegawai}`);
+    const seriesData = data.map((item) => item.totalPegawai);
     const documentStyle = getComputedStyle(document.body);
 
     return {
@@ -72,11 +71,11 @@ const setChartOptions = () => {
                 display: true,
                 position: 'bottom',
                 labels: {
-                    cutout: "60%",
-                    color: textColor,
+                    // cutout: "60%",
+                    // color: textColor,
                     font: {
                         weight: 'bold',
-                        size: '14'
+                        size: '12'
                     }
                 },
             },
@@ -96,7 +95,7 @@ const setChartOptions = () => {
 };
 
 const createChart = () => {
-    chart.value = new Chart(chartContainer.value, {
+    chart.value = new Chart($refs.chartContainer, {
         type: "doughnut",
         data: chartData.value,
         options: chartOptions.value,

@@ -11,7 +11,7 @@
             </svg>
         </template>
         <template #item="{ item, props, hasSubmenu, root }">
-            <!-- <a v-ripple class="flex align-items-center" v-bind="props.action">
+            <a v-ripple class="flex align-items-center" v-bind="props.action">
                 <span :class="item.icon" />
                 <span class="ml-2">{{ item.label }}</span>
                 <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
@@ -19,7 +19,7 @@
                     item.shortcut }}</span>
                 <i v-if="hasSubmenu"
                     :class="['pi pi-angle-down text-primary', { 'pi-angle-down ml-2': root, 'pi-angle-right ml-auto': !root }]"></i>
-            </a> -->
+            </a>
         </template>
         <template #end>
             <button @click="pendidikanTerakhir">Fetch Data JK</button>
@@ -40,9 +40,9 @@
                 <div class="text-center border-round-lg">
                     <div class="chart-card">
                         <div class="card">
-                            <div class="navbar tinggi-nav-radius" style="background-color: rgb(135, 88, 216);">
+                            <div class="navbar tinggi-nav-radius" style="background-color: rgb(216, 88, 135);">
                                 <!-- Tambahkan elemen-elemen navbar di sini -->
-                                <span class="navbar-item">Kehadiran</span>
+                                <span class="navbar-item tPutih">Kehadiran</span>
 
                             </div>
 
@@ -80,45 +80,55 @@
                     <div class="card">
                         <div class="navbar tinggi-nav-radius" style="background-color: rgb(135, 88, 216);">
                             <!-- Tambahkan elemen-elemen navbar di sini -->
-                            <span class="navbar-item">Data Jenis Kelamin</span>
+                            <span class="navbar-item tPutih">Data Jenis Kelamin</span>
+                            <div class="ml-auto pr-2">
+                                <Button label=" Detail" @click="visible1 = true" class="pi pi-table tombol" />
+                            </div>
+                            <div class="card flex justify-content-end">
+                                <Dialog v-model:visible="visible1" modal header="Jumlah Pegawai"
+                                    :style="{ width: '25rem' }">
+                                    <span class="p-text-secondary block mb-5"> Berdasarkan Jabatan.</span>
+                                    <div class="col">
+                                        <DataTable :value="responseDataJabatanDepartemenTotal" tableStyle="min-width:100%"
+                                            class="custom-datatable">
+                                            <Column field="index" header="No" :style="{ 'width': '3em' }">
+                                                <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
+                                                <template #body="props">
+                                                    {{ props.index + 1 }}
+                                                </template>
+                                            </Column>
+                                            <Column field="namaJabatan" header="Jabatan"></Column>
+                                            <Column field="totalPegawai" header="Total"></Column>
+                                            <!-- Tambahkan kolom lain sesuai kebutuhan -->
+                                        </DataTable>
+                                    </div>
+                                    <div class="flex justify-content-end gap-2">
+                                        <Button type="button" label="Cancel" severity="secondary"
+                                            @click="visible1 = false"></Button>
+                                    </div>
+                                </Dialog>
+                            </div>
 
                         </div>
                         <div class="grid">
-                            <div class="col">
-
+                            <!-- <div class="col">
                                 <DataTable :value="responseDataHrisJenisKelamin" tableStyle="min-width:100%"
                                     class="custom-datatable">
 
                                     <Column field="index" header="No" :style="{ 'width': '3em' }">
-                                        <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
                                         <template #body="props">
                                             {{ props.index + 1 }}
                                         </template>
                                     </Column>
                                     <Column field="nama" header="Jenis Kelamin"></Column>
                                     <Column field="jumlah" header="Jumlah"></Column>
-                                    <!-- Tambahkan kolom lain sesuai kebutuhan -->
                                 </DataTable>
+                            </div> -->
 
-
-                                <div class="col custom-chart">
-                                    <jenisKelaminChart />
-                                </div>
-                            </div>
                             <div class="col">
-                                <DataTable :value="responseDataJabatanDepartemenTotal" tableStyle="min-width:100%"
-                                    class="custom-datatable">
-                                    <Column field="index" header="No" :style="{ 'width': '3em' }">
-                                        <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
-                                        <template #body="props">
-                                            {{ props.index + 1 }}
-                                        </template>
-                                    </Column>
-                                    <Column field="namaJabatan" header="Jabatan"></Column>
-                                    <Column field="totalPegawai" header="Total"></Column>
-                                    <!-- Tambahkan kolom lain sesuai kebutuhan -->
-                                </DataTable>
+                                <jenisKelaminChart />
                             </div>
+
 
 
                         </div>
@@ -134,36 +144,45 @@
                 <div class="text-center border-round-lg">
                     <div class="chart-card">
                         <div class="card">
-                            <div class="navbar tinggi-nav-radius" style="background-color: rgb(175, 216, 88);">
+                            <div class="navbar tinggi-nav-radius" style="background-color: rgb(127, 168, 37);">
                                 <!-- Tambahkan elemen-elemen navbar di sini -->
-                                <span class="navbar-item">Pendidikan Terakhir</span>
-
+                                <span class="navbar-item tPutih">Jumlah Pegawai Berdasarkan Jabatan</span>
+                                <div class="ml-auto pr-2">
+                                    <Button label=" Detail" @click="visible1 = true" class="pi pi-table tombol" />
+                                </div>
+                                <div class="card flex justify-content-end">
+                                    <Dialog v-model:visible="visible1" modal header="Jumlah Pegawai"
+                                        :style="{ width: '25rem' }">
+                                        <span class="p-text-secondary block mb-5"> Berdasarkan Jabatan.</span>
+                                        <div class="col">
+                                            <DataTable :value="responseDataJabatanDepartemenTotal"
+                                                tableStyle="min-width:100%" class="custom-datatable">
+                                                <Column field="index" header="No" :style="{ 'width': '3em' }">
+                                                    <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
+                                                    <template #body="props">
+                                                        {{ props.index + 1 }}
+                                                    </template>
+                                                </Column>
+                                                <Column field="namaJabatan" header="Jabatan"></Column>
+                                                <Column field="totalPegawai" header="Total"></Column>
+                                                <!-- Tambahkan kolom lain sesuai kebutuhan -->
+                                            </DataTable>
+                                        </div>
+                                        <div class="flex justify-content-end gap-2">
+                                            <Button type="button" label="Cancel" severity="secondary"
+                                                @click="visible1 = false"></Button>
+                                        </div>
+                                    </Dialog>
+                                </div>
                             </div>
 
                             <div class="grid">
-                                <div class="col">
-                                    <DataTable :value="responseDataPendidikanTerakhir" :scrollable="true"
-                                        scrollHeight="300px" :rows="5" :paginator="false" tableStyle="min-width:100%"
-                                        class="custom-datatable">
-                                        <template #header>
-                                            <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                                                <Button icon="pi pi-refresh" rounded raised />
-                                            </div>
-                                        </template>
-                                        <Column field="index" header="No" :style="{ 'width': '3em' }">
-                                            <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
-                                            <template #body="props">
-                                                {{ props.index + 1 }}
-                                            </template>
-                                        </Column>
-                                        <Column field="nama" header="Pendidikan"></Column>
-                                        <Column field="jumlah" header="Jumlah"></Column>
-                                        <!-- Tambahkan kolom lain sesuai kebutuhan -->
-                                    </DataTable>
+
+                                <div class="col ">
+                                    <pegawaiJabatanChart />
                                 </div>
-                                <div class="col custom-chart">
-                                    <pendidikanTerakhirChart style="height: auto;" />
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -173,15 +192,50 @@
                 <div class="text-center border-round-lg">
                     <div class="chart-card">
                         <div class="card">
-                            <div class="navbar tinggi-nav-radius" style="background-color: rgb(175, 216, 88);">
+                            <div class="navbar tinggi-nav-radius" style="background-color: rgb(88, 216, 184);">
                                 <!-- Tambahkan elemen-elemen navbar di sini -->
-                                <span class="navbar-item">Pendidikan Terakhir</span>
+                                <span class="navbar-item tPutih">Pegawai Berdasarkan Pendidikan Terakhir</span>
+                                <div class="ml-auto pr-2">
+                                    <Button label=" Detail" @click="visible2 = true" class="pi pi-table tombol" />
+                                </div>
+                                <div class="card flex justify-content-end">
+                                    <Dialog v-model:visible="visible2" modal header="Pegawai" :style="{ width: '25rem' }">
+                                        <span class="p-text-secondary block mb-5">Berdasarkan Pendidikan Terakhir.</span>
+                                        <div class="col">
+                                            <DataTable :value="responseDataPendidikanTerakhir" :scrollable="true"
+                                                scrollHeight="300px" :rows="5" :paginator="false"
+                                                tableStyle="min-width:100%" class="custom-datatable">
+                                                <template #header>
+                                                    <div
+                                                        class="flex flex-wrap align-items-center justify-content-between gap-2">
+                                                        <!-- <Button icon="pi pi-refresh" rounded raised /> -->
+                                                    </div>
+                                                </template>
+                                                <Column field="index" header="No" :style="{ 'width': '3em' }">
+                                                    <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
+                                                    <template #body="props">
+                                                        {{ props.index + 1 }}
+                                                    </template>
+                                                </Column>
+                                                <Column field="nama" header="Pendidikan"></Column>
+                                                <Column field="jumlah" header="Jumlah"></Column>
+                                                <!-- Tambahkan kolom lain sesuai kebutuhan -->
+                                            </DataTable>
+                                        </div>
+                                        <div class="flex justify-content-end gap-2">
+                                            <Button type="button" label="Cancel" severity="secondary"
+                                                @click="visible2 = false"></Button>
+                                        </div>
+                                    </Dialog>
+                                </div>
                             </div>
 
                             <div class="grid">
-                                <div class="col custom-chart" style="">
-                                    <pendidikanTerakhirChart />
+
+                                <div class="col " style="">
+                                    <pendidikanTerakhirChart style="width: absolute;" />
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -190,26 +244,7 @@
 
         </div>
 
-        <div>
-            <div class="chart-container">
-                <div class="chart-card" style="background-color: ;">
-                    <Card style="width: 100%; margin-top: 5px;">
-                        <template #title> Lokasi Kerja
-                            <h5>Total Data Keseluruhan: {{ totalData }}</h5>
-                        </template>
-                        <template #content>
-                            <div class="col custom-chart">
-                                <jenisKelaminChart />
-                            </div>
 
-
-                        </template>
-                    </Card>
-                </div>
-
-
-            </div>
-        </div>
     </div>
 </template>
 
@@ -218,7 +253,7 @@ import Column from 'primevue/column';
 import employesController from '../../controller/employes-controller';
 import jenisKelaminChart from '../../components/jenisKelaminChart.vue';
 import pendidikanTerakhirChart from '../../components/pendidikanTerakhirChart.vue';
-
+import pegawaiJabatanChart from '../../components/pegawaiJabatanChart.vue';
 import MyApexChart from '../../components/MyApexChart.vue';
 
 import './style.css';
@@ -228,6 +263,7 @@ export default {
     components: {
         jenisKelaminChart,
         pendidikanTerakhirChart,
+        pegawaiJabatanChart,
         MyApexChart
     },
 }

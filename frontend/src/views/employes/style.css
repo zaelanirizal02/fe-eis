@@ -1,20 +1,19 @@
 .my-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: rgb(211, 216, 227)
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgb(255, 255, 255)
+    
 }
 
-.tinggi-accordion {
-    min-height: 100px;
-    /* Atur tinggi minimum sesuai kebutuhan Anda */
-}
+
 
 .custom-datatable th,
 .custom-datatable td {
-    width: auto;
-   border:   black;
+    width: 30%;
+border: 1px solid;
+border-color: #ddd #ddd;
     
 
 }
@@ -29,6 +28,7 @@
 .tabel-container{
     display:flex;
     justify-content: space-between;
+    
 }
 
 .chart-card {
@@ -37,6 +37,7 @@
     /* atau sesuaikan sesuai kebutuhan */
 }
 
+
 .data-container {
     margin-top: 20px;
     text-align: left;
@@ -44,6 +45,7 @@
 
 .datatable-container{
     margin: 2px;
+    
    
 }
 
@@ -66,18 +68,41 @@
         /* Menengahkan vertikal */
     
 }
+.tPutih{
+    color: white;
+}
+
+.tHitam{
+    color: rgb(101, 13, 13);
+}
+
+.tombol{
+   
+    border-radius: 15px;
+}
 
 /* CHART ============================== */
 .chartSize{
-    width: 50%;
-    height: 50%;
+    width: 20px;
+    height: 20px;
 }
 
 .custom-chart {
-    height: 100%;
+    width: 450px;
+margin: auto;
+padding-top: 20px;
+    
+}
+.custom-chart-bar {
+    /* height: 300px; */
+    width: 700px;
+    margin: auto;
+    /* padding-top: 10px; */
+}
+.custom-chart-tengah {
+    height:100%;
     width: 100%;
-    margin-top: auto;
-    /* Pastikan chart mengisi lebar container */
+    margin: auto;
 }
 
 
@@ -89,8 +114,4 @@
 
 .flex-container{
     display: flex;
-}
-
-.testescolor{
-    background-color: rgb(103, 101, 164);
 }

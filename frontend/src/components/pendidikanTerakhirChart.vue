@@ -1,5 +1,5 @@
 <template>
-    <div class="justify-content-center">
+    <div class="justify-content-center custom-chart-bar">
         <Chart type="bar" :data="chartData" :options="lightOptions" :plugins="plugins" />
     </div>
 </template>
@@ -8,7 +8,7 @@
 import { ref, onMounted } from 'vue';
 import Chart from 'primevue/chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { hrisService, token } from '../api/index';
+import { hrisServiceHr1Mod1, token } from '../api/index';
 import '../views/employes/style.css';
 
 const plugins = [ChartDataLabels];
@@ -26,7 +26,16 @@ const chartData = ref({
 const lightOptions = ref({
     plugins: {
         legend: {
-            display: false, // data atas
+            display: false,
+            position: 'bottom',
+            labels: {
+                // cutout: "40%",
+                // color: textColor,
+                font: {
+                    weight: 'bold',
+                    size: 20
+                }
+            },
         },
         datalabels: {
             color: 'white',
@@ -34,7 +43,7 @@ const lightOptions = ref({
                 title: {
                     font: {
                         weight: 'bold',
-                        size: 15,
+                        size: 20,
                     },
                     text: {
                         font: {
@@ -61,7 +70,7 @@ onMounted(async () => {
 
 const fetchDataFromApi = async () => {
     try {
-        const response = await hrisService.get(
+        const response = await hrisServiceHr1Mod1.get(
             'registrasiPegawai/findJumlahPegawaiFilterPendidikan',
             {
                 headers: {

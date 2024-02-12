@@ -1,5 +1,10 @@
 // import employesService from "../service/employes-service";
-import { api, hrisService, token } from "../api/index";
+import {
+  // api,
+  hrisServiceHr1Mod1,
+  // hrisServiceHr2Nod3,
+  token,
+} from "../api/index";
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -11,7 +16,8 @@ export default {
   },
   data() {
     return {
-      visible: false, //dialog opener
+      visible1: false, //dialog opener
+      visible2: false, //dialog opener
       filterNama: "",
       responseData: [],
       responseDataHris: [],
@@ -83,18 +89,18 @@ export default {
   },
 
   mounted() {
-    this.fetchData();
+    // this.fetchData();
+    // this.search();
     this.fetchDataHris();
     this.fetchDataHrisJenisKelamin();
     this.jabatanDepartemenTotal();
     this.pendidikanTerakhir();
-    this.search();
   },
   methods: {
     // ...employesService,
     async fetchDataHris() {
       try {
-        const response = await hrisService.get(
+        const response = await hrisServiceHr1Mod1.get(
           "registrasiPegawai/findJumlahPegawaiFilterAbsensi",
           {
             headers: {
@@ -111,7 +117,7 @@ export default {
 
     async fetchDataHrisJenisKelamin() {
       try {
-        const response = await hrisService.get(
+        const response = await hrisServiceHr1Mod1.get(
           "registrasiPegawai/findJumlahPegawaiFilterJenisKelamin",
           {
             headers: {
@@ -129,7 +135,7 @@ export default {
 
     async jabatanDepartemenTotal() {
       try {
-        const response = await hrisService.get(
+        const response = await hrisServiceHr1Mod1.get(
           "registrasiPegawai/findJumlahJabatan",
           {
             headers: {
@@ -139,14 +145,14 @@ export default {
         );
         this.responseDataJabatanDepartemenTotal =
           response.data.data.jabatanDepartemenTotal;
-        console.log(this.responseDataJabatanDepartemenTotal);
+        // console.log(this.responseDataJabatanDepartemenTotal);
       } catch (error) {
         console.error("Error Fetching Data Jabatan Departemen", error);
       }
     },
     async pendidikanTerakhir() {
       try {
-        const response = await hrisService.get(
+        const response = await hrisServiceHr1Mod1.get(
           "registrasiPegawai/findJumlahPegawaiFilterPendidikan",
           {
             headers: {
@@ -162,38 +168,38 @@ export default {
       }
     },
 
-    async fetchData() {
-      try {
-        const response = await api.get("api/employes");
-        this.responseData = response.data;
-        // console.log(this.responseData);
+    // async fetchData() {
+    //   try {
+    //     const response = await api.get("api/employes");
+    //     this.responseData = response.data;
+    //     // console.log(this.responseData);
 
-        //hitung total data
-        this.totalData = this.responseData.length;
+    //     //hitung total data
+    //     this.totalData = this.responseData.length;
 
-        //panggil metode chart untuk mengatur data chart
-        // this.setChartPGender();
-        // this.setChartPStatus();
-        // this.setChartPLokasi();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    },
+    //     //panggil metode chart untuk mengatur data chart
+    //     // this.setChartPGender();
+    //     // this.setChartPStatus();
+    //     // this.setChartPLokasi();
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   }
+    // },
     //========================= CHART =========================
 
-    async search(keyword) {
-      try {
-        if (this.filterNama) {
-          const response = await api.get(`api/employes/search?nama=${keyword}`);
-          this.responseData = response.data;
-        } else {
-          this.fetchData();
-        }
-      } catch (error) {
-        // handle error
-        console.error("Error during search", error);
-      }
-    },
+    // async search(keyword) {
+    //   try {
+    //     if (this.filterNama) {
+    //       const response = await api.get(`api/employes/search?nama=${keyword}`);
+    //       this.responseData = response.data;
+    //     } else {
+    //       this.fetchData();
+    //     }
+    //   } catch (error) {
+    //     // handle error
+    //     console.error("Error during search", error);
+    //   }
+    // },
     buttonSearchNama() {
       this.search(this.filterNama);
     },
