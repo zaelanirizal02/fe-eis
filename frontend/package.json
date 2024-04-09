@@ -19,7 +19,8 @@
     "vue3-apexcharts": "^1.4.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.0",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/cli": "^5.0.8",
     "vite": "^5.1.1"
   }
 }

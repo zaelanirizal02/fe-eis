@@ -70,13 +70,13 @@ const setChartOptions = () => {
         plugins: {
             legend: {
                 display: true,
-                position: 'bottom',
+                position: 'left',
                 labels: {
                     cutout: "60%",
                     color: textColor,
                     font: {
                         weight: 'bold',
-                        size: '14'
+                        size: '12'
                     }
                 },
             },
@@ -86,7 +86,7 @@ const setChartOptions = () => {
                     title: {
                         font: {
                             weight: 'bold',
-                            size: 20,
+                            size: 12,
                         },
                     },
                 },

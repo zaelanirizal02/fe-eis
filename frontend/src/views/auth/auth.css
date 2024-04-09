@@ -1,0 +1,99 @@
+.container {
+    padding: 10px;
+    /* background-color: rgba(121, 121, 121, 0.5); */
+    background-image: url('../../assets/logo/logo-pagawe-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* .logo {
+    padding: 10px;
+    background-color: rgba(121, 121, 121, 0.5);
+    background-image: url('../../assets/logo/logo-pagawe-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10%) top;
+} */
+
+.card {
+    margin-top: 200px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: auto;
+    padding: auto;
+    background-color: rgba(33, 94, 67, 0.7);
+}
+
+/* Media query untuk layar berukuran kecil (misalnya, ponsel) */
+@media screen and (max-width: 768px) {
+    .card {
+        margin-top: 100px;
+        /* Ubah sesuai kebutuhan Anda */
+        margin-left: 5px;
+        /* Ubah sesuai kebutuhan Anda */
+        margin-right: 5px;
+        /* Ubah sesuai kebutuhan Anda */
+        padding: 10px;
+        /* Ubah sesuai kebutuhan Anda */
+    }
+}
+
+/* Media query untuk layar berukuran kecil (misalnya, ponsel) */
+@media screen and (max-width: 667px) {
+    .card {
+        margin-top: 100px;
+        /* Ubah sesuai kebutuhan Anda */
+        margin-left: 10px;
+        /* Ubah sesuai kebutuhan Anda */
+        margin-right: 10px;
+        /* Ubah sesuai kebutuhan Anda */
+        padding: 15px;
+        /* Ubah sesuai kebutuhan Anda */
+    }
+}
+
+/* .card {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-color: black;
+    width: auto;
+    height: auto;
+    background-color: #797979;
+} */
+
+
+/* .center {
+    margin: center;
+} */
+
+.jrk {
+    margin-left: 40px;
+}
+
+.jrkform {
+    margin-left: 150px;
+}
+
+.jkn {
+    margin-right: 100px;
+
+}
+
+.jb {
+    margin-bottom: 20px;
+}
+
+.jpa {
+    padding-top: 20px;
+}
+
+.jpb {
+    padding-bottom: 20px;
+}
+
+.font-dropdown .p-dropdown-label {
+    font-size: 12px;
+    /* Ganti dengan ukuran yang Anda inginkan */
+}

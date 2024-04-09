@@ -1,14 +1,14 @@
 <template>
-    <div class="custom-chart" ref="chartContainer">
-        <Chart type="doughnut" :data="chartData" :options="chartOptions" :plugins="plugins" />
+    <div class="justify-content-center custom-chart-jabatan" ref="chartContainer">
+        <Chart type="bar" :data="chartData" :options="chartOptions" :plugins="plugins" />
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted } from "vue";
 import { hrisServiceHr1Mod1, token } from "../api/index";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import Chart from 'primevue/chart';
+// import Chart from 'primevue/chart';
 
 const plugins = [ChartDataLabels];
 const chartData = ref(null);
@@ -17,36 +17,46 @@ const chart = (null);
 
 onMounted(async () => {
     await fetchDataFromApi();
-    window.addEventListener('resize', resizeChart);
 });
 
-onBeforeUnmount(() => {
-    window.removeEventListener('resize', resizeChart);
-});
 
 const fetchDataFromApi = async () => {
     try {
         const response = await hrisServiceHr1Mod1.get(
-            "registrasiPegawai/findJumlahJabatan",
+            "registrasiPegawai/findJumlahPegawaiFilterJabatan",
             {
                 headers: {
                     "x-auth-token": `${token}`,
                 },
             }
         );
-        const data = response.data.data.jabatanDepartemenTotal;
+        const data = response.data.data.jumlahPegawaiFilter;
 
         chartData.value = setChartData(data);
         chartOptions.value = setChartOptions();
         // createChart();
+
+        // Menghasilkan warna secara dinamis
+        const dynamicColors = (count) => {
+            const colors = [];
+            for (let i = 0; i < count; i++) {
+                colors.push(`rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`);
+            }
+            return colors;
+        };
+
+        // Perbarui data chart
+
+        chartData.value.datasets[0].backgroundColor = dynamicColors(data.length);
+
     } catch (error) {
         console.error("Error fetching data", error);
     }
 };
 
 const setChartData = (data) => {
-    const labels = data.map((item) => `${item.namaJabatan} - ${item.totalPegawai}`);
-    const seriesData = data.map((item) => item.totalPegawai);
+    const labels = data.map((item) => `${item.nama} - ${item.jumlah}`);
+    const seriesData = data.map((item) => item.jumlah);
     const documentStyle = getComputedStyle(document.body);
 
     return {
@@ -54,7 +64,7 @@ const setChartData = (data) => {
         datasets: [
             {
                 data: seriesData,
-                backgroundColor: [documentStyle.getPropertyValue('--cyan-500'), documentStyle.getPropertyValue('--orange-500'), documentStyle.getPropertyValue('--gray-500')],
+                backgroundColor: ['rgb(103, 101, 164)'],
                 hoverBackgroundColor: [documentStyle.getPropertyValue('--cyan-400'), documentStyle.getPropertyValue('--orange-400'), documentStyle.getPropertyValue('--gray-400')]
             },
         ],
@@ -68,14 +78,12 @@ const setChartOptions = () => {
     return {
         plugins: {
             legend: {
-                display: true,
-                position: 'bottom',
+                display: false,
+                position: 'left',
                 labels: {
-                    // cutout: "60%",
-                    // color: textColor,
                     font: {
                         weight: 'bold',
-                        size: '12'
+                        size: '14'
                     }
                 },
             },
@@ -91,22 +99,20 @@ const setChartOptions = () => {
                 },
             },
         },
+
+        // height: 300
     };
 };
 
+
 const createChart = () => {
     chart.value = new Chart($refs.chartContainer, {
-        type: "doughnut",
+        type: "bar",
         data: chartData.value,
         options: chartOptions.value,
         plugins: plugins,
     });
 };
 
-const resizeChart = () => {
-    if (chart.value) {
-        chart.value.destroy();
-        createChart();
-    }
-};
+
 </script>

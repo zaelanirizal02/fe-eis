@@ -47,7 +47,7 @@ const lightOptions = ref({
                     },
                     text: {
                         font: {
-                            size: 20, // Ukuran font untuk teks "SD", "SLTA", "SLTP"
+                            size: 15, // Ukuran font untuk teks "SD", "SLTA", "SLTP"
                         },
                     },
                 },

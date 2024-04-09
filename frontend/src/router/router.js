@@ -1,9 +1,30 @@
 //import vue router
 import { createRouter, createWebHistory } from "vue-router";
 // import AppLayout from "../views/layout/AppLayout.vue";
+function isTokenBlacklisted(accessToken) {
+  // Lakukan pemeriksaan terhadap daftar token yang di-blacklist di server
+  // Misalnya, Anda dapat melakukan permintaan HTTP ke server untuk memeriksa status token
+  // Jika token telah di-blacklist, kembalikan true, jika tidak, kembalikan false
+  // Contoh sederhana, Anda dapat mengganti ini sesuai kebutuhan aplikasi Anda
+  const blacklistedTokens = ["token1", "token2"]; // Daftar token yang di-blacklist
+
+  return blacklistedTokens.includes(accessToken);
+}
+
+const requireAuth = (to, from, next) => {
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken && !isTokenBlacklisted(accessToken)) {
+    next(); // Continue navigation to the requested page if the token is available
+  } else {
+    localStorage.removeItem("accessToken");
+    next({ name: "login" }); // Redirect to the login page if the token is not available (user is not logged in)
+  }
+};
+
 
 //define a routes
 const routes = [
+
   // {
   //   path: "/",
   //   component: AppLayout,
@@ -16,9 +37,36 @@ const routes = [
   //   ],
   // },
   {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/auth/login-page.vue"),
+  },
+  {
+    path: "/",
+    name: "index",
+    component: () => import("../views/employes/index.vue"),
+    beforeEnter: requireAuth,
+  },
+  {
     path: "/eis",
     name: "employes.index",
     component: () => import("../views/employes/index.vue"),
+    beforeEnter: requireAuth,
+  },
+  // {
+  //   path: "/demografi",
+  //   name: "employes.demografi",
+  //   component: () => import("../views/employes/demografi.vue"),
+  // },
+   {
+    path: "/kehadiran",
+    name: "employes.kehadiran",
+    component: () => import("../views/employes/kehadiran.vue"),
+  },
+   {
+    path: "/strSip",
+    name: "strSip",
+    component: () => import("../components/strSip.vue"),
   },
   // {
   //   path: "/apex",
