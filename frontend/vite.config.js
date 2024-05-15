@@ -12,6 +12,7 @@ import vue from "@vitejs/plugin-vue";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+    // base: '/eis/',
   build: {
     chunkSizeWarningLimit: 2000, // Sesuaikan dengan kebutuhan Anda
     rollupOptions: {
@@ -26,3 +27,7 @@ export default defineConfig({
     },
   },
 });
+
+
+
+

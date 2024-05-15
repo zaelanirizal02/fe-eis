@@ -1,37 +1,5 @@
 <template>
-    <!-- <Menubar :model="items" class="sticky-menubar" position="sticky" top="0">
-        <template #start>
-            <svg width="300" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-4rem">
-                <image xlink:href="../../assets/logo/logo-pagawe-1.png" x="0" y="0" width="130" height="70" />
-            </svg>
-        </template>
 
-<template #item="{ item, props, hasSubmenu, root }">
-            <a v-ripple class="flex align-items-center" v-bind="props.action">
-                <span :class="item.icon" />
-                <span class="ml-2">{{ item.label }}</span>
-                <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
-                <span v-if="item.shortcut"
-                    class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut
-                    }}</span>
-                <i v-if="hasSubmenu"
-                    :class="['pi pi-angle-down', { 'pi-angle-down ml-2': root, 'pi-angle-right ml-auto': !root }]"></i>
-            </a>
-        </template>
-
-
-<template #end>
-            <div class="navbar">
-                <div class="date">{{ currentDate }}</div>
-            </div> -->
-    <!-- <button @click="filterStatusPegawai">Fetch Data JK</button>  -->
-
-    <!-- <div class="flex align-items-center gap-2"> 
-                <InputText placeholder="Search" type="text" class="w-8rem sm:w-auto" />
-                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-            </div>
-        </template>
-</Menubar> -->
 
     <template>
         <div class="card flex justify-content-center">
@@ -82,7 +50,7 @@
         </template> -->
         <template #end>
             <Dropdown v-model="selectedCategory" :options="responseDataPegawaiTotalDropdown" optionLabel="nama"
-                placeholder="Select Category" class="mr-2">
+                placeholder="Unit Kerja" class="mr-2">
                 <template #option="{ option }">
                     <div class="flex align-items-center">
                         <Checkbox :inputId="option.key" :value="option.namaRuangan" v-model="selectedCategory" />
@@ -101,7 +69,7 @@
                 style="width: 120px;" />
 
             <!-- Tombol untuk melakukan pencarian -->
-            <Button @click="searchByDateRange" label="Search" icon="pi pi-search" />
+            <Button @click="searchByDateRange" label="Cari" icon="pi pi-search" />
         </template>
 
         <!-- <div class="flex align-items-center gap-2">
@@ -188,7 +156,6 @@
                                                                 }}</h4>
                                                         </div>
                                                     </div>
-
                                                 </div>
 
 
@@ -496,7 +463,7 @@
                                             <div class="navbar tinggi-nav-radius"
                                                 style="background-color: rgb(88, 216, 184);">
                                                 <!-- Tambahkan elemen-elemen navbar di sini -->
-                                                <span class="navbar-item tPutih">Pinjaman yg masih berjalan</span>
+                                                <span class="navbar-item tPutih">Pengajuan Pinjaman Personal</span>
                                                 <div class="ml-auto pr-2">
                                                     <Button label=" Detail" @click="visible2 = true"
                                                         class="pi pi-table tombol" />
@@ -540,7 +507,67 @@
 
                                             <div class="grid">
                                                 <div class="col">
-                                                    <pendidikanTerakhirChart style="width: absolute;" />
+                                                    <pengajuanPinjamanPersonalChart style="width: absolute;" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="text-center border-round-lg">
+                                    <div class="chart-card">
+                                        <div class="card">
+                                            <div class="navbar tinggi-nav-radius"
+                                                style="background-color: rgb(88, 216, 184);">
+                                                <!-- Tambahkan elemen-elemen navbar di sini -->
+                                                <span class="navbar-item tPutih">Pengajuan Harian</span>
+                                                <div class="ml-auto pr-2">
+                                                    <Button label=" Detail" @click="visible2 = true"
+                                                        class="pi pi-table tombol" />
+                                                </div>
+                                                <div class="card flex justify-content-end">
+                                                    <Dialog v-model:visible="visible2" modal
+                                                        header="Pendidikan Terakhir" :style="{ width: '25rem' }">
+                                                        <!-- <span class="p-text-secondary block mb-5">Berdasarkan Pendidikan Terakhir.</span> -->
+                                                        <div class="col">
+                                                            <DataTable :value="responseDataPendidikanTerakhir"
+                                                                :scrollable="true" scrollHeight="300px" :rows="5"
+                                                                :paginator="false" tableStyle="min-width:100%"
+                                                                class="custom-datatable">
+
+                                                                <template #header>
+                                                                    <div
+                                                                        class="flex flex-wrap align-items-center justify-content-between gap-2">
+                                                                        <!-- <Button icon="pi pi-refresh" rounded raised /> -->
+                                                                    </div>
+                                                                </template>
+                                                                <Column field="index" header="No"
+                                                                    :style="{ 'width': '3em' }">
+                                                                    <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
+
+                                                                    <template #body="props">
+                                                                        {{ props.index + 1 }}
+                                                                    </template>
+                                                                </Column>
+                                                                <Column field="nama" header="Tingkat"></Column>
+                                                                <Column field="jumlah" header="Jumlah"></Column>
+                                                                <!-- Tambahkan kolom lain sesuai kebutuhan -->
+                                                            </DataTable>
+                                                        </div>
+                                                        <div class="flex justify-content-end gap-2">
+                                                            <Button type="button" label="Cancel" severity="secondary"
+                                                                @click="visible2 = false"></Button>
+                                                        </div>
+                                                    </Dialog>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid">
+                                                <div class="col">
+                                                    <pengajuanHarianChart style="width: absolute;" />
                                                 </div>
 
                                             </div>
@@ -601,7 +628,7 @@
 
                                             <div class="grid">
                                                 <div class="col">
-                                                    <statusPajakPTKPChart style="width: absolute;" />
+                                                    <biayaPajakPerBulanChart style="width: absolute;" />
                                                 </div>
 
                                             </div>
@@ -661,7 +688,67 @@
 
                                             <div class="grid">
                                                 <div class="col">
-                                                    <cobaChart style="width: absolute;" />
+                                                    <biayaBpjsPerBulanChart style="width: absolute;" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="text-center border-round-lg">
+                                    <div class="chart-card">
+                                        <div class="card">
+                                            <div class="navbar tinggi-nav-radius" style="background-color:#152286;">
+
+                                                <!-- Tambahkan elemen-elemen navbar di sini -->
+                                                <span class="navbar-item tPutih">Total Gaji Perbulan</span>
+                                                <div class="ml-auto pr-2">
+                                                    <Button label=" Detail" @click="clickMasaKerja = true"
+                                                        class="pi pi-table tombol" />
+                                                </div>
+                                                <div class="card flex justify-content-end">
+                                                    <Dialog v-model:visible="clickMasaKerja" modal
+                                                        header="Biaya BPJS Per Bulan" :style="{ width: '25rem' }">
+                                                        <!-- <span class="p-text-secondary block mb-5">Berdasarkan Pendidikan Terakhir.</span> -->
+                                                        <div class="col">
+                                                            <DataTable :value="responseDataPegawaiMasaKerja"
+                                                                :scrollable="true" scrollHeight="300px" :rows="5"
+                                                                :paginator="false" tableStyle="min-width:100%"
+                                                                class="custom-datatable">
+
+                                                                <template #header>
+                                                                    <div
+                                                                        class="flex flex-wrap align-items-center justify-content-between gap-2">
+                                                                        <!-- <Button icon="pi pi-refresh" rounded raised /> -->
+                                                                    </div>
+                                                                </template>
+                                                                <Column field="index" header="No"
+                                                                    :style="{ 'width': '3em' }">
+                                                                    <!-- Gunakan slot "body" untuk menampilkan nomor urut -->
+
+                                                                    <template #body="props">
+                                                                        {{ props.index + 1 }}
+                                                                    </template>
+                                                                </Column>
+                                                                <Column field="nama" header="Tingkat"></Column>
+                                                                <Column field="jumlah" header="Jumlah"></Column>
+                                                                <!-- Tambahkan kolom lain sesuai kebutuhan -->
+                                                            </DataTable>
+                                                        </div>
+                                                        <div class="flex justify-content-end gap-2">
+                                                            <Button type="button" label="Cancel" severity="secondary"
+                                                                @click="clickMasaKerja = false"></Button>
+                                                        </div>
+                                                    </Dialog>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid">
+                                                <div class="col">
+                                                    <totalGajiPerBulanChart style="width: absolute;" />
                                                 </div>
 
                                             </div>
@@ -952,6 +1039,11 @@ import filterLokasiKerjaChart from '../../components/filterLokasiKerjaChart.vue'
 import pegawaiStatusChart from '../../components/pegawaiStatusChart.vue';
 import usiaDanJenisKelamin from '../../components/usiaDanJenisKelaminChart.vue';
 import statusPajakPTKPChart from '../../components/statusPajakPTKPChart.vue';
+import pengajuanPinjamanPersonalChart from '../../components/pengajuanPinjamanPersonalChart.vue';
+import pengajuanHarianChart from '../../components/pengajuanHarianChart.vue';
+import biayaPajakPerBulanChart from '../../components/biayaPajakPerBulanChart.vue';
+import biayaBpjsPerBulanChart from '../../components/biayaBpjsPerBulanChart.vue';
+import totalGajiPerBulanChart from '../../components/totalGajiPerBulanChart.vue';
 
 
 import strSip from '../../components/strSip.vue';
@@ -974,6 +1066,11 @@ export default {
         pegawaiDepartemenChart,
         pegawaiMasaKerjaChart,
         statusPajakPTKPChart,
+        pengajuanPinjamanPersonalChart,
+        pengajuanHarianChart,
+        biayaPajakPerBulanChart,
+        biayaBpjsPerBulanChart,
+        totalGajiPerBulanChart,
         strSip,
 
         cobaChart

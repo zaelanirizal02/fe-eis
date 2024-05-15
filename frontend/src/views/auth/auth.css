@@ -1,4 +1,4 @@
-.container {
+.containerLogin {
     padding: 10px;
     /* background-color: rgba(121, 121, 121, 0.5); */
     background-image: url('../../assets/logo/logo-pagawe-1.png');
@@ -16,7 +16,7 @@
     background-position: calc(100% - 10%) top;
 } */
 
-.card {
+.cardLogin {
     margin-top: 200px;
     margin-left: 20px;
     margin-right: 20px;

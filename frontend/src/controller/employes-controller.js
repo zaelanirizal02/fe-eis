@@ -10,11 +10,59 @@ import {
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import ColorPicker from "primevue/colorpicker";
+
+
+//KEPERLUAN CHART
+import { ref, onMounted } from 'vue';
+import Chart from 'primevue/chart';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+// import '../assets/css/buttonStyle.css';
+// import '../views/employes/style.css';
+
+//METHOD UNTUK CHART
+export async function fetchDataDepartemenChart() {
+  try {
+    const response = await hrisServiceHr1Mod1.get(
+      'registrasiPegawai/findJumlahPegawaiFilterDepartemen',
+      {
+        headers: {
+          'x-auth-token': `${token}`,
+        },
+      }
+    );
+    const data = response.data.data.listPegawai;
+
+    const labels = data.map((item) => item.namaDepartemen);
+    const seriesData = data.map((item) => item.jumlah);
+
+    const dynamicColors = (count) => {
+      const colors = [];
+      for (let i = 0; i < count; i++) {
+        colors.push(`rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`);
+      }
+      return colors;
+    };
+
+    return {
+      labels: labels,
+      datasets: [{
+        data: seriesData,
+        backgroundColor: dynamicColors(labels.length),
+        hoverBackgroundColor: dynamicColors(labels.length),
+      }]
+    };
+  } catch (error) {
+    console.error('Error Fetching chart Departemen', error);
+    return null; // Mengembalikan null jika terjadi kesalahan
+  }
+}
 
 export default {
   components: {
     DataTable,
     Column,
+    ColorPicker,
   },
   data() {
     return {
@@ -52,13 +100,13 @@ export default {
       responseDataPegawaiTotal: [],
       responseDataPegawaiTotalDropdown: [],
 
-      responDataPegawaiStrSip: [],
+      // responDataPegawaiStrSip: [],
       items: [
         {
           label: "Dashboard",
           icon: "pi pi-home",
           command: () => {
-            this.$router.push('/eis');
+            this.$router.push('/');
           }
         },
         {
@@ -78,7 +126,9 @@ export default {
         {
           label: "Payroll",
           icon: "pi pi-dollar",
-          badge: 3,
+             command: () => {
+            this.$router.push('/payroll');
+          }
         },
       ],
 
@@ -143,16 +193,53 @@ export default {
     this.pendidikanTerakhir();
     this.filterLokasiKerja();
     this.filterStatusPegawai();
-    this.tampilFotoDiri();
+    // this.tampilFotoDiri();
     this.usiaDanJenisKelamin();
 
-    this.pegawaiStrStip();
+    // this.pegawaiStrSip();
     this.getCurrentDate();
     this.pegawaiMasaKerja();
     this.jumlahPegawaiTotal();
     this.jumlahPegawaiTotalDropdown();
+
+    //CHART
   },
   methods: {
+
+    //CHART Function
+
+async fetchDataDepartemenChart() {
+      try {
+        const response = await hrisServiceHr1Mod1.get(
+          'registrasiPegawai/findJumlahPegawaiFilterDepartemen',
+          {
+            headers: {
+              'x-auth-token': `${token}`,
+            },
+          }
+        );
+        const data = response.data.data.listPegawai;
+
+        const labels = data.map((item) => item.namaDepartemen);
+        const seriesData = data.map((item) => item.jumlah);
+
+        const dynamicColors = (count) => {
+          const colors = [];
+          for (let i = 0; i < count; i++) {
+            colors.push(`rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`);
+          }
+          return colors;
+        };
+
+        this.chartData.labels = labels;
+        this.chartData.datasets[0].data = seriesData;
+        this.chartData.datasets[0].backgroundColor = dynamicColors(labels.length);
+
+      } catch (error) {
+        console.error('Error Fetching chart Departemen', error);
+      }
+    },
+
 
     getCurrentDate() {
       const today = new Date();
@@ -212,19 +299,19 @@ export default {
     },
 
     //menampilkan foto absensi
-    async tampilFotoDiri() {
-      try {
-        const response = await hrisServiceAuthInfo.get("image/showPhotos", {
-          headers: {
-            "x-auth-token": `${token}`,
-          },
-        });
-        this.responseDataFotoDiri = response;
-        console.log(this.responseDataFotoDiri);
-      } catch (error) {
-        console.error("error fetching service", error);
-      }
-    },
+    // async tampilFotoDiri() {
+    //   try {
+    //     const response = await hrisServiceAuthInfo.get("image/showPhotos", {
+    //       headers: {
+    //         "x-auth-token": `${token}`,
+    //       },
+    //     });
+    //     this.responseDataFotoDiri = response;
+    //     // console.log(this.responseDataFotoDiri);
+    //   } catch (error) {
+    //     console.error("error fetching service", error);
+    //   }
+    // },
 
     async filterJenisKelamin() {
       try {
@@ -304,36 +391,11 @@ export default {
           }
         );
         this.responseDataPegawaiTotal = response.data.data;
-        console.log(this.responseDataPegawaiTotal);
+        // console.log(this.responseDataPegawaiTotal);
       } catch (error) {
         console.error("Error Fetching Data Jabatan Departemen", error);
       }
     },
-
-//     async jumlahPegawaiTotalDropdown() {
-//   try {
-//     const response = await dataMaster.get(
-//       // "registrasiPegawai/findJumlahPegawai",
-//  "service/list-generic?table=Ruangan&select=namaRuangan&page=1&rows=1000&criteria=kdRuanganHead&values=001&condition=and&profile=y ",
-
-//       {
-//         headers: {
-//           "x-auth-token": `${token}`,
-//         },
-//       }
-//     );
-    
-//     const responseData = response.data.data.data;
-//     // Mengonversi objek menjadi array yang sesuai untuk digunakan dalam Dropdown
-//     this.responseDataPegawaiTotalDropdown = Object.keys(responseData).map((key, index) => ({
-//       key: `category_${index}`,
-//       nama: `${key}: ${responseData[key]}`, // Menetapkan properti nama untuk Dropdown
-//     }));
-//     console.log(this.responseDataPegawaiTotalDropdown);
-//   } catch (error) {
-//     console.error("Error Fetching Data Jabatan Departemen", error);
-//   }
-    //   },
     
     async jumlahPegawaiTotalDropdown() {
   try {
@@ -355,7 +417,7 @@ export default {
       namaRuangan: ruangan.namaRuangan, // Menetapkan properti namaRuangan untuk Dropdown
     }));
 
-    console.log(this.responseDataPegawaiTotalDropdown);
+    // console.log(this.responseDataPegawaiTotalDropdown);
   } catch (error) {
     console.error("Error Fetching Data Ruangan", error);
   }
@@ -416,22 +478,22 @@ export default {
       }
     },
 
-    async pegawaiStrStip() {
-      try {
-        const response = await hrisServiceHr1Mod1.get(
-          "dokumen/findAll?page=1&rows=10&dir=namaJudulDokumen&sort=desc&namaDokumen=STR",
-          {
-            headers: {
-              "x-auth-token": `${token}`,
-            },
-          }
-        );
-        this.responseDataPegawaiStrSip = response.data.Dokumen;
-        console.log(this.responseDataPegawaiStrSip);
-      } catch (error) {
-        console.error("Error Fetching STR SIP", error);
-      }
-    },
+    // async pegawaiStrStip() {
+    //   try {
+    //     const response = await hrisServiceHr1Mod1.get(
+    //       "dokumen/findAll?page=1&rows=10&dir=namaJudulDokumen&sort=desc&namaDokumen=STR",
+    //       {
+    //         headers: {
+    //           "x-auth-token": `${token}`,
+    //         },
+    //       }
+    //     );
+    //     this.responseDataPegawaiStrSip = response.data.Dokumen;
+    //     // console.log(this.responseDataPegawaiStrSip);
+    //   } catch (error) {
+    //     console.error("Error Fetching STR SIP", error);
+    //   }
+    // },
 
     async pegawaiMasaKerja() {
       try {
@@ -444,7 +506,7 @@ export default {
           }
     );
     this.responseDataPegawaiMasaKerja = response.data.data.data;
-    console.log(this.responseDataPegawaiMasaKerja);
+    // console.log(this.responseDataPegawaiMasaKerja);
         
       } catch (error) {
         console.error("Error fething Masa Kerja", error);

@@ -1,5 +1,5 @@
 <template>
-    <div class="justify-content-center ">
+    <div class="justify-content-center custom-chart ">
         <Chart type="bar" :data="chartData" :options="lightOptions" :plugins="plugins" />
     </div>
 </template>
@@ -9,7 +9,7 @@ import { ref, onMounted } from 'vue';
 import Chart from 'primevue/chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { hrisServiceHr1Mod1, token } from '../api/index';
-import '../views/employes/style.css';
+// import '../views/employes/style.css';
 
 const plugins = [ChartDataLabels];
 const chartData = ref({
@@ -47,7 +47,7 @@ const lightOptions = ref({
                     },
                     text: {
                         font: {
-                            size: 20, // Ukuran font untuk teks "SD", "SLTA", "SLTP"
+                            size: 20, // Ukuran font untuk teks "
                         },
                     },
                 },

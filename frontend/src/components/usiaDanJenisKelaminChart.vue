@@ -22,7 +22,7 @@ const chartOptions = ref();
 async function usiaDanJenisKelamin() {
     try {
         const response = await hrisServiceHr1Mod1.get(
-            "registrasiPegawai/findJumlahPegawaiFilterUsiadanJK",
+            "dashboardEis/findJumlahPegawaiFilterUsiadanJK",
             {
                 headers: {
                     "x-auth-token": `${token}`,
@@ -30,12 +30,13 @@ async function usiaDanJenisKelamin() {
             }
         );
         const data = response.data.data.data;
+        // console.log(data)
         chartData.value = setChartData(data);
         chartOptions.value = setChartOptions();
 
 
     } catch (error) {
-        console.error("error fetching Service", error);
+        console.error("error fetching Usia dan JK", error);
     }
 }
 

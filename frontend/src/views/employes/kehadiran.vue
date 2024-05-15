@@ -1,9 +1,9 @@
 <template>
     <div class="my-container">
 
-        <menubar />
+        <!-- <menubar /> -->
         <div class="row">
-            <div class="col-6" style=" width: 100%">
+            <div class="col-12" style=" width: 100%;">
                 <div class="grid">
                     <div class="col">
                         <div class="text-center border-round-lg">
@@ -17,7 +17,7 @@
                                     <div class="grid">
                                         <div class="col">
                                             <DataTable ref="dt" :value="responseDataRekapByRuanganHarian"
-                                                :scrollable="true" scrollHeight="500px" :paginator="false" :rows="5"
+                                                :scrollable="true" scrollHeight="5700px" :paginator="false" :rows="5"
                                                 tableStyle="min-width:100%;"
                                                 class="custom-datatable responsive-datatable">
 

@@ -1,106 +1,82 @@
 <template>
     <div class="justify-content-center custom-chart-bar">
-        <Chart type="bar" :data="chartData" :options="lightOptions" :plugins="plugins" />
+        <Chart :type="chartType" :data="chartData" :options="chartOptions" :plugins="chartPlugins" />
     </div>
 </template>
 
-<script setup>
+<script>
 import { ref, onMounted } from 'vue';
+import { fetchDataDepartemenChart } from '../controller/filter-controller.js';
 import Chart from 'primevue/chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { hrisServiceHr1Mod1, token } from '../api/index';
-import '../views/employes/style.css';
+// import '../views/employes/style.css';
 
-const plugins = [ChartDataLabels];
-const chartData = ref({
-    labels: [],
-    datasets: [
-        {
-            // label: ['Pendidikan Terakhir'],
-            data: [],
-            backgroundColor: ['rgb(103, 101, 164)'],
-            hoverBackgroundColor: ['rgb(64, 27, 27)'],
-        },
-    ],
-});
-const lightOptions = ref({
-    plugins: {
-        legend: {
-            display: false,
-            position: 'bottom',
-            labels: {
-                // cutout: "40%",
-                // color: textColor,
-                font: {
-                    weight: 'bold',
-                    size: 20
-                }
-            },
-        },
-        datalabels: {
-            color: 'white',
-            labels: {
-                title: {
-                    font: {
-                        weight: 'bold',
-                        size: 20,
-                    },
-                    text: {
+export default {
+    components: {
+        Chart,
+    },
+    setup() {
+        const chartData = ref({
+            labels: [],
+            datasets: [
+                {
+                    data: [],
+                    backgroundColor: [],
+                    hoverBackgroundColor: [],
+                },
+            ],
+        });
+
+        const chartType = 'bar';
+
+        const chartOptions = ref({
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'bottom',
+                    labels: {
                         font: {
-                            size: 15, // Ukuran font untuk teks "SD", "SLTA", "SLTP"
+                            weight: 'bold',
+                            size: 20
+                        }
+                    },
+                },
+                datalabels: {
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold',
+                                size: 20,
+                            },
+                            text: {
+                                font: {
+                                    size: 15,
+                                },
+                            },
                         },
                     },
                 },
-                // value: {
-                //     color: 'green',
-                //     font: {
-                //         weight: 'bold',
-                //         size: 48,
-                //     },
-                // },
             },
-        },
-    },
+        });
 
-});
+        const chartPlugins = [ChartDataLabels];
 
-onMounted(async () => {
-    await fetchDataFromApi();
-});
+        onMounted(() => {
+            fetchDataDepartemenChart().then(data => {
+                chartData.value = data;
+            }).catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        });
 
-const fetchDataFromApi = async () => {
-    try {
-        const response = await hrisServiceHr1Mod1.get(
-            'registrasiPegawai/findJumlahPegawaiFilterDepartemen',
-            {
-                headers: {
-                    'x-auth-token': `${token}`,
-                },
-            }
-        );
-        const data = response.data.data.listPegawai;
-
-        // Ekstraksi data untuk chart
-        const labels = data.map((item) => item.namaDepartemen);
-        const seriesData = data.map((item) => item.jumlah);
-        const label = data.map((item) => item.namaDepartemen);
-
-        // Menghasilkan warna secara dinamis
-        const dynamicColors = (count) => {
-            const colors = [];
-            for (let i = 0; i < count; i++) {
-                colors.push(`rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`);
-            }
-            return colors;
+        return {
+            chartData,
+            chartType,
+            chartOptions,
+            chartPlugins
         };
-        // Perbarui data chart
-        chartData.value.labels = labels;
-        chartData.value.datasets[0].data = label;
-        chartData.value.datasets[0].data = seriesData;
-        chartData.value.datasets[0].backgroundColor = dynamicColors(labels.length);
-
-    } catch (error) {
-        console.error('Error Fetching Data Pendidikan Terakhir', error);
-    }
+    },
 };
+
 </script>

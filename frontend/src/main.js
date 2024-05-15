@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router/router";
 
+//component primevue
 import PrimeVue from "primevue/config";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -22,15 +23,19 @@ import Divider from 'primevue/divider';
 import RadioButton from 'primevue/radiobutton';
 import Calendar from 'primevue/calendar';
 import Dropdown from 'primevue/dropdown';
+import Tree from "primevue/tree";
 import Checkbox from 'primevue/checkbox';
+import ColorPicker from "primevue/colorpicker";
 
 
 
-
+//component bawaan
+// import DatePicker from "vue";
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import ApexCharts from "apexcharts";
+import moment from "moment";
 import VueApexCharts from "vue3-apexcharts";
 
 import "primeflex/primeflex.css";
@@ -41,7 +46,12 @@ import "primevue/resources/themes/saga-blue/theme.css";
 // import "primevue/resources/themes/lara-dark-indigo/theme.css";
 
 const app = createApp(App);
+app.config.globalProperties.$moment = moment;
+
+
+app.component("ColorPicker", ColorPicker);
 app.component("Checkbox", Checkbox);
+app.component("Tree", Tree);
 app.component("Dropdown", Dropdown);
 app.component("Calendar", Calendar);
 app.component("RadioButton", RadioButton);
@@ -63,6 +73,8 @@ app.component("Button", Button);
 app.component("Chart", Chart);
 app.component("Divider", Divider);
 app.component("VueApexCharts", VueApexCharts);
+
+// app.component("DatePicker", DatePicker);
 
 app.use(router);
 app.use(PrimeVue, { ripple: true });

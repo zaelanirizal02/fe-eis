@@ -41,14 +41,26 @@ const routes = [
     name: "login",
     component: () => import("../views/auth/login-page.vue"),
   },
+  // {
+  //   path: "/",
+  //   name: "index",
+  //   component: () => import("../views/employes/index.vue"),
+  //   beforeEnter: requireAuth,
+  // },
   {
-    path: "/",
-    name: "index",
-    component: () => import("../views/employes/index.vue"),
+    path: "/dashboard",
+    name: "dashboard.index",
+    component: () => import("../views/dashboard/dashboard.vue"),
     beforeEnter: requireAuth,
   },
   {
-    path: "/eis",
+    path: "/",
+    name: "dashboard.index",
+    component: () => import("../views/dashboard/dashboard.vue"),
+    beforeEnter: requireAuth,
+  },
+  {
+    path: "/eis2",
     name: "employes.index",
     component: () => import("../views/employes/index.vue"),
     beforeEnter: requireAuth,
@@ -57,16 +69,30 @@ const routes = [
   //   path: "/demografi",
   //   name: "employes.demografi",
   //   component: () => import("../views/employes/demografi.vue"),
+  //   beforeEnter: requireAuth,
+
   // },
    {
     path: "/kehadiran",
     name: "employes.kehadiran",
-    component: () => import("../views/employes/kehadiran.vue"),
+    component: () => import("../views/employes/absensi.vue"),
+    beforeEnter: requireAuth,
+
   },
    {
     path: "/strSip",
     name: "strSip",
     component: () => import("../components/strSip.vue"),
+  },
+   {
+    path: "/chartTest",
+    name: "test",
+    component: () => import("../components/chartTest.vue"),
+  },
+   {
+    path: "/payroll",
+    component: () => import("../views/employes/payroll.vue"),
+    name: "test",
   },
   // {
   //   path: "/apex",

@@ -1,7 +1,7 @@
 <template>
     <Menubar :model="items" class="sticky-menubar" position="sticky" top="0">
         <template #start>
-            <a href="/eis">
+            <a href="/">
                 <svg width="300" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-4rem">
                     <image xlink:href="../../assets/logo/logo-pagawe-1.png" x="0" y="0" width="130" height="70" />
                 </svg>
@@ -42,7 +42,7 @@
 import employesController from '../../controller/employes-controller';
 
 
-import './style.css';
+// import './style.css';
 
 export default {
     mixins: [employesController],

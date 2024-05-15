@@ -9,7 +9,7 @@ import { ref, onMounted } from 'vue';
 import Chart from 'primevue/chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { hrisServiceHr1Mod1, token } from '../api/index';
-import '../views/employes/style.css';
+// import '../views/employes/style.css';
 
 const plugins = [ChartDataLabels];
 const chartData = ref({

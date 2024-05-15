@@ -9,7 +9,7 @@ import { ref, onMounted } from 'vue';
 import Chart from 'primevue/chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { hrisServiceHr1Mod1, token } from '../api/index';
-import '../views/employes/style.css';
+// import '../views/employes/style.css';
 
 const plugins = [ChartDataLabels];
 const chartData = ref({
@@ -65,7 +65,7 @@ onMounted(async () => {
 const fetchDataFromApi = async () => {
     try {
         const response = await hrisServiceHr1Mod1.get(
-            'registrasiPegawai/findJumlahPegawaiFilterStatusPajak',
+            'dashboardEis/findJumlahPegawaiFilterStatusPajak',
             {
                 headers: {
                     'x-auth-token': `${token}`,
