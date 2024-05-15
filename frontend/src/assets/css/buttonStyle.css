@@ -1,0 +1,33 @@
+.buttonChart {
+    /* padding: 15px 25px; */
+    /* font-size: 24px; */
+    width: 50%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    color: #fffefe;
+    background-color: #7e6ed0;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+
+
+}
+
+.buttonChart:hover {
+    background-color: #2052e6;
+
+
+}
+
+.buttonChart:active {
+    opacity: 1.5;
+    background-color: #5c43da;
+    box-shadow: 0 5px #666;
+    transform: translateZ(4px);
+
+}
+
+.center{
+    text-align: center;
+}
